@@ -1,0 +1,48 @@
+<html>
+<head>
+<script type="text/javascript">
+
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function docReady(fn) {
+        // see if DOM is already available
+        if (document.readyState === "complete" || document.readyState === "interactive") {
+            // call on next available tick
+            setTimeout(fn, 1);
+        } else {
+            document.addEventListener("DOMContentLoaded", fn);
+        }
+    }  
+
+    docReady(function() {
+        let queryString =new URL(document.location).searchParams;
+        console.log('querystring: '+ queryString);
+        let crm_url=getParameterByName('crm_url');
+        console.log(crm_url);
+
+        // similar behavior as an HTTP redirect
+        //window.location.replace(crm_url);
+        window.location.href=crm_url;
+        //window.location.assign(crm_url);
+    });
+
+
+
+</script>
+</head>
+<body>
+    <p> Hello World!!!</p>
+</body>
+</html>
+
+
+
+
+
